@@ -21,5 +21,10 @@ public class Account {
     private Integer id;
     @Column(length = 20, nullable = false, unique = true)
     private String accountNumber;
-    private float balance;
+    private float amount;
+
+    public Account(Integer id, String accountNumber) {
+        this.id = id;
+        this.accountNumber = accountNumber;
+    }
 }

@@ -1,5 +1,7 @@
 package com.api.hateoas.appaccounts.model;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Account {
+public class Account extends RepresentationModel<Account> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

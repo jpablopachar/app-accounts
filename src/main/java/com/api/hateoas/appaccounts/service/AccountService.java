@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.api.hateoas.appaccounts.exception.AccountNotFoundException;
 import com.api.hateoas.appaccounts.model.Account;
 import com.api.hateoas.appaccounts.repository.IAccountRepository;
 
@@ -28,7 +29,22 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public void delete(Integer id) {
+    public void delete(Integer id) throws AccountNotFoundException {
+        if (!accountRepository.existsById(id))
+            throw new AccountNotFoundException("La cuenta con id " + id + " no existe");
+
         accountRepository.deleteById(id);
+    }
+
+    public Account deposit(float amount, Integer id) {
+        accountRepository.updateAmount(amount, id);
+
+        return accountRepository.findById(id).get();
+    }
+
+    public Account withdraw(float amount, Integer id) {
+        accountRepository.updateAmount(-amount, id);
+
+        return accountRepository.findById(id).get();
     }
 }
